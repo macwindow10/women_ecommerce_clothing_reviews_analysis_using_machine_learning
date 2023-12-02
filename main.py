@@ -21,6 +21,9 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
+
 nltk.download("stopwords")
 stop_words = stopwords.words("english")
 new_stopping_words = stop_words[:len(stop_words) - 36]
@@ -161,3 +164,9 @@ if __name__ == '__main__':
     pred_2 = lr.predict(X_test_tf_idf)
     Eval_lr = classification_task(lr, X_train_tf_idf, y_train, X_test_tf_idf, y_test, pred_2, "logisitc regression")
     print(Eval_lr)
+    conf = confusion_matrix(y_test, pred_2, normalize="all")
+    disp = ConfusionMatrixDisplay(conf).plot(cmap=plt.cm.PuBuGn)
+    print(disp)
+    plt.show()
+    # https://www.kaggle.com/code/haneenhossam/women-clothing-reviews-classification-with-rnn
+
